@@ -1,0 +1,29 @@
+- docker_service:
+    project_name: shintech
+    definition:
+      version: '2'
+      services:
+        db:
+          image: shintech/database
+          container_name: postgres
+          environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: api_production
+        bbps:
+          image: shintech/backbone_postgres_seed
+          container_name: bbps
+          environment:
+            NODE_ENV: production
+            TZ: 'America/Chicago'
+            PORT: 8000
+            POSTGRES_DB: api_production
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            DATABASE_URL: postgres://postgres:postgres@postgres:5432/api_production
+            REDIS_STORE_URI: redis://localhost:6379 
+            REDIS_STORE_SECRET: 'secret'
+          ports:
+            - "8000:8000"
+          links:
+            - db

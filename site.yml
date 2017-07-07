@@ -1,0 +1,7 @@
+- name: coreos
+  hosts: coreos
+  connection: ssh
+  gather_facts: no
+  roles:
+    - install
+    - docker
