@@ -31,5 +31,24 @@
   copy: src=runner dest=~/bin/pip mode=0755
   when: need_pip | failed
   
+- name: Check if we need to install docker-py
+  shell: "{{ansible_python_interpreter}} -m pip show docker"
+  register: need_docker
+  ignore_errors: True
+  changed_when: false
+  when: need_pip | failed
+  
 - name: Install docker-py
-  shell: "{{ansible_python_interpreter}} -m pip install docker docker-compose"
+  shell: "{{ansible_python_interpreter}} -m pip install docker"
+  when: need_docker | failed
+  
+- name: Check if we need to install docker-compose
+  shell: "{{ansible_python_interpreter}} -m pip show docker-compose"
+  register: need_docker_compose
+  ignore_errors: True
+  changed_when: false
+  when: need_pip | failed
+  
+- name: Install docker-compose
+  shell: "{{ansible_python_interpreter}} -m pip install docker-compose"
+  when: need_docker_compose | failed
