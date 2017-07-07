@@ -7,3 +7,4 @@ node_env: production
 redis_secret: 'secret'
 redis_uri: redis://localhost:6379 
 timezone: 'America/Chicago'
+network_name: shintech
