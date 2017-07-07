@@ -1,0 +1,2 @@
+- docker_network:
+    name: "{{ network_name }}"

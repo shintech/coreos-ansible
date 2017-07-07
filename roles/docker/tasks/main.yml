@@ -1,6 +1,3 @@
-- docker_network:
-    name: "{{ network_name }}"
-      
 - docker_container:
     name: bbps
     image: shintech/backbone_postgres_seed
