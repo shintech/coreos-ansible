@@ -8,5 +8,17 @@
 ### Usage
 
 Add hosts to inventory/core
+
+    core-01 ansible_ssh_host=<host>
+
+Edit /etc/ansible/ansible.cfg
+
+    inventory = /path/to/inventory/core
+
+AND Run ansible playbook
+
+    ansible-playbook site.yml
     
-    ansible-playbook -i inventory/core site.yml
+OR run with inventory argument
+
+    ansible -i /inventory/core site.yml
