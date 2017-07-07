@@ -54,5 +54,5 @@
   when: need_docker_compose | failed
   
 - name: copy env file...
-  copy: src=environment.env dest=~/environment.env
+  copy: src=docker.env dest=~/docker.env
   

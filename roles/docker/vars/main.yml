@@ -1,2 +1,2 @@
 network_name: shintech
-environment_file: $HOME/environment.env
+environment_file: $HOME/docker.env
