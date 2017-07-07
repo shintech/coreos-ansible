@@ -1,24 +1,26 @@
-## coreos-ansible
+# coreos-ansible
 
-### Synopsis
+## Synopsis
 
 * Install python, pip, docker, and docker-compose
 * Deploy docker images with docker-compose
 
-### Usage
+## Usage
 
-Add hosts to inventory/core
+### Use without inventory argument
+
+#### Add hosts to inventory/core
 
     core-01 ansible_ssh_host=<host>
 
-Edit /etc/ansible/ansible.cfg
+#### Edit /etc/ansible/ansible.cfg
 
     inventory = /path/to/inventory/core
 
-AND Run ansible playbook
+#### Run ansible playbook
 
     ansible-playbook site.yml
     
-OR run with inventory argument
+### Run with inventory argument
 
-    ansible -i /inventory/core site.yml
+    ansible-playbook -i /path/to/inventory/core site.yml
