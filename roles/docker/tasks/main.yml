@@ -7,22 +7,22 @@
           image: shintech/database
           container_name: postgres
           environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-            POSTGRES_DB: api_production
+            POSTGRES_USER: "{{ postgres_user }}"
+            POSTGRES_PASSWORD: "{{ postgres_password }}"
+            POSTGRES_DB: "{{ postgres_db }}"
         bbps:
           image: shintech/backbone_postgres_seed
           container_name: bbps
           environment:
-            NODE_ENV: production
-            TZ: 'America/Chicago'
-            PORT: 8000
-            POSTGRES_DB: api_production
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-            DATABASE_URL: postgres://postgres:postgres@postgres:5432/api_production
-            REDIS_STORE_URI: redis://localhost:6379 
-            REDIS_STORE_SECRET: 'secret'
+            NODE_ENV: "{{ node_env }}"
+            TZ: "{{ timezone }}"
+            PORT: "{{ port }}"
+            POSTGRES_DB: "{{ postgres_db }}"
+            POSTGRES_USER: "{{ postgres_user }}"
+            POSTGRES_PASSWORD: "{{ postgres_password }}"
+            DATABASE_URL: "{{ postgres_url }}"
+            REDIS_STORE_URI: "{{ redis_uri }}" 
+            REDIS_STORE_SECRET: "{{ redis_secret }}"
           ports:
             - "8000:8000"
           links:
