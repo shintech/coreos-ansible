@@ -16,7 +16,7 @@
           environment:
             NODE_ENV: "{{ node_env }}"
             TZ: "{{ timezone }}"
-            PORT: "{{ port }}"
+            PORT: "{{ service_port }}"
             POSTGRES_DB: "{{ postgres_db }}"
             POSTGRES_USER: "{{ postgres_user }}"
             POSTGRES_PASSWORD: "{{ postgres_password }}"
