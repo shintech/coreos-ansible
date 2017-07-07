@@ -1,33 +1,3 @@
-- docker_container:
-    name: bbps
-    image: shintech/backbone_postgres_seed
-    state: started
-    restart: yes
-    network_mode: bridge
-    env:
-      NODE_ENV: "{{ node_env }}"
-      TZ: "{{ timezone }}"
-      PORT: "{{ service_port }}"
-      POSTGRES_DB: "{{ postgres_db }}"
-      POSTGRES_USER: "{{ postgres_user }}"
-      POSTGRES_PASSWORD: "{{ postgres_password }}"
-      DATABASE_URL: "{{ postgres_url }}"
-      REDIS_STORE_URI: "{{ redis_uri }}" 
-      REDIS_STORE_SECRET: "{{ redis_secret }}"
-    ports:
-      - "8000:8000"    
-    networks:
-      - name: "{{ network_name }}"
-      
-- docker_container:
-    name: postgres
-    image: shintech/database
-    state: started
-    restart: yes
-    env:
-      POSTGRES_USER: "{{ postgres_user }}"
-      POSTGRES_PASSWORD: "{{ postgres_password }}"
-      POSTGRES_DB: "{{ postgres_db }}"
-    network_mode: bridge
-    networks:
-      - name: "{{ network_name }}"
+- include: network.yml
+- include: bbps.yml
+- include: postgres.yml

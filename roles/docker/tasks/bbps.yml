@@ -1,0 +1,13 @@
+- name: build bbps container...
+  docker_container:
+    name: bbps
+    image: shintech/backbone_postgres_seed
+    state: started
+    restart: yes
+    network_mode: bridge
+    env_file: "{{ environment_file }}"
+    ports:
+      - "8000:8000"    
+    networks:
+      - name: "{{ network_name }}"
+      

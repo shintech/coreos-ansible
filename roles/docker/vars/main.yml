@@ -1,10 +1,2 @@
-service_port: 8000
-postgres_db: api_production
-postgres_user: postgres
-postgres_password: postgres
-postgres_url: postgres://postgres:postgres@postgres:5432/api_production
-node_env: production
-redis_secret: 'secret'
-redis_uri: redis://localhost:6379 
-timezone: 'America/Chicago'
 network_name: shintech
+environment_file: $HOME/environment.env

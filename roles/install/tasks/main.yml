@@ -1,54 +1,58 @@
-- name: Check if bootstrap is needed
+- name: check if bootstrap is needed...
   raw: stat $HOME/.bootstrapped
   register: need_bootstrap
   ignore_errors: True
 
-- name: Run bootstrap.sh
+- name: run bootstrap.sh...
   script: bootstrap.sh
   when: need_bootstrap | failed
 
-- name: Check if we need to install pip
+- name: check if we need to install pip...
   shell: "{{ansible_python_interpreter}} -m pip --version"
   register: need_pip
   ignore_errors: True
   changed_when: false
   when: need_bootstrap | failed
 
-- name: Copy get-pip.py
+- name: copy get-pip.py...
   copy: src=get-pip.py dest=~/get-pip.py
   when: need_pip | failed
 
-- name: Install pip
+- name: install pip...
   shell: "{{ansible_python_interpreter}} ~/get-pip.py"
   register: pip_installed
   when: need_pip | failed
 
-- name: Remove get-pip.py
+- name: remove get-pip.py...
   file: path=~/get-pip.py state=absent
   when: need_pip | failed
 
-- name: Install pip launcher
+- name: install pip launcher...
   copy: src=runner dest=~/bin/pip mode=0755
   when: need_pip | failed
   
-- name: Check if we need to install docker-py
+- name: check if we need to install docker-py...
   shell: "{{ansible_python_interpreter}} -m pip show docker"
   register: need_docker
   ignore_errors: True
   changed_when: false
   when: need_pip | failed
   
-- name: Install docker-py
+- name: install docker-py...
   shell: "{{ansible_python_interpreter}} -m pip install docker"
   when: need_docker | failed
   
-- name: Check if we need to install docker-compose
+- name: iheck if we need to install docker-compose...
   shell: "{{ansible_python_interpreter}} -m pip show docker-compose"
   register: need_docker_compose
   ignore_errors: True
   changed_when: false
   when: need_pip | failed
   
-- name: Install docker-compose
+- name: install docker-compose...
   shell: "{{ansible_python_interpreter}} -m pip install docker-compose"
   when: need_docker_compose | failed
+  
+- name: copy env file...
+  copy: src=environment.env dest=~/environment.env
+  
