@@ -42,7 +42,7 @@
   shell: "{{ansible_python_interpreter}} -m pip install docker"
   when: need_docker | failed
   
-- name: iheck if we need to install docker-compose...
+- name: check if we need to install docker-compose...
   shell: "{{ansible_python_interpreter}} -m pip show docker-compose"
   register: need_docker_compose
   ignore_errors: True

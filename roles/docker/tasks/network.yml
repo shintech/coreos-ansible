@@ -1,3 +1,5 @@
 - name: create network...
   docker_network:
     name: "{{ network_name }}"
+    state: present
+    appends: yes
