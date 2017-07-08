@@ -3,7 +3,6 @@
     name: postgres
     image: shintech/database
     state: started
-    restart: yes
     env_file: "{{ environment_file }}"
     network_mode: bridge
     networks:

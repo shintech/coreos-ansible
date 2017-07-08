@@ -1,0 +1,58 @@
+- name: create nginx directories...
+  become: yes
+  become_method: sudo
+  file: path=./data/etc/sites-available state=directory
+  register: nginx_directories
+
+- name: nginx.config...
+  become: yes
+  become_method: sudo
+  template: src=nginx.j2  dest=./data/etc/nginx.conf owner=root group=root
+  when: nginx_directories
+  
+- name: nginx.config...
+  become: yes
+  become_method: sudo
+  template: src=nginx.j2  dest=./data/etc/sites-available/{{ domain }} owner=root group=root
+  register: site_config
+  when: nginx_directories
+  
+- name: nginx.config...
+  become: yes
+  become_method: sudo
+  template: src=mime.j2  dest=./data/etc/mime.types owner=root group=root
+  register: site_config
+  when: nginx_directories  
+  
+- name: build nginx container...
+  docker_container:
+    name: nginx
+    image: nginx
+    state: started
+    restart: yes
+    ports:
+      - "80:80"
+      - "443:443"
+    network_mode: bridge
+    volumes:
+      # nginx
+      - ./data/etc:/etc/nginx:ro
+      - ./data/log:/var/log/nginx
+      # certbot (SSL)
+      # - ../certbot/data/webroot:/acme-challenge:ro
+      # - ../certbot/data/etc:/certbot:ro
+    networks:
+      - name: "{{ network_name }}"
+        ipv4_address: 172.16.100.100
+
+# - name: create nginx directories...
+#   become: yes
+#   become_method: sudo
+#   file: path=./data/etc/nginx state=directory
+#   register: nginx_directories
+  
+
+# - name: start nginx...
+#   command: docker run -d nginx nginx start
+#   when: site_config
+    

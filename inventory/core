@@ -1,4 +1,4 @@
-core-01 ansible_ssh_host=<host ip>
+core-01 ansible_ssh_host=dev.shintech.ninja
 
 [web]
 core-01
