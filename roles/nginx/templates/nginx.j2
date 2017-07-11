@@ -17,12 +17,12 @@ http {
   include sites/*;
 }
 
-stream {
-  server {
-    listen 8080;
-    allow all;
-    proxy_pass 127.0.0.1:8000;
-  }
-}
+#stream {
+#  server {
+#    listen 8080;
+#    allow all;
+#    proxy_pass 127.0.0.1:8000;
+#  }
+#}
 
 
