@@ -1,23 +1,19 @@
-#/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
-cd
+mkdir -p $HOME
+cd $HOME
 
 if [[ -e $HOME/.bootstrapped ]]; then
   exit 0
 fi
 
-PYPY_VERSION=5.1.0
-
-if [[ -e $HOME/pypy-$PYPY_VERSION-linux64.tar.bz2 ]]; then
-  tar -xjf $HOME/pypy-$PYPY_VERSION-linux64.tar.bz2
-  rm -rf $HOME/pypy-$PYPY_VERSION-linux64.tar.bz2
-else
-  wget -O - https://bitbucket.org/pypy/pypy/downloads/pypy-$PYPY_VERSION-linux64.tar.bz2 |tar -xjf -
+if [[ -e /tmp/pypy.tar.bz2 ]]; then
+  tar -xjf /tmp/pypy.tar.bz2 -C $HOME
 fi
 
-mv -n pypy-$PYPY_VERSION-linux64 pypy
+mv -n pypy2-v5.8.0-linux64 pypy
 
 ## library fixup
 mkdir -p pypy/lib
@@ -30,7 +26,6 @@ cat > $HOME/bin/python <<EOF
 LD_LIBRARY_PATH=$HOME/pypy/lib:$LD_LIBRARY_PATH exec $HOME/pypy/bin/pypy "\$@"
 EOF
 
+rm -f /tmp/pypy.tar.bz2
 chmod +x $HOME/bin/python
 $HOME/bin/python --version
-
-touch $HOME/.bootstrapped

@@ -1,10 +1,8 @@
-core-01 ansible_ssh_host=dev.shintech.ninja
-
 [web]
-core-01
+dev.shintech.ninja
 
 [coreos]
-core-01
+dev.shintech.ninja
 
 [coreos:vars]
 ansible_ssh_user=core
