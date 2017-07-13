@@ -3,39 +3,27 @@
   become_method: sudo
   file: path=./nginx/data/etc/sites state=directory owner=core group=core
   # file: path=./nginx owner=core group=core mode=0755 recurse=yes
-    
+
 - name: copy nginx.config...
   become: yes
   become_method: sudo
-  template: src=nginx.j2  dest=./nginx/data/etc/nginx.conf owner=core group=core
-
-- name: copy certbot.conf...
-  template: src=certbot.j2  dest=./nginx/data/etc/certbot.conf owner=core group=core
-  register: site_config
-  
-- name: copy mime.types...
-  template: src=mime.j2  dest=./nginx/data/etc/mime.types owner=core group=core 
-
-- name: nginx sites-availabe...
-  template: src=site.j2  dest=./nginx/data/etc/sites/{{ domain }} owner=core group=core
-
-- name: copy ssl.conf...
-  template: src=ssl.j2  dest=./nginx/data/etc/ssl.conf owner=core group=core  
+  template: src={{ item.src }} dest={{ item.dest }} owner=core group=core
+  with_items:
+    - { src: nginx.j2,  dest: ./nginx/data/etc/nginx.conf }
+    - { src: certbot.j2,  dest: ./nginx/data/etc/certbot.conf }
+    - { src: mime.j2,  dest: ./nginx/data/etc/mime.types }
+    - { src: ssl.j2,  dest: ./nginx/data/etc/ssl.conf }
 
 - name: copy dhparam.pem
   copy: src=dhparam.pem dest=./nginx/data/etc/dhparam.pem
   
+- name: nginx sites-availabe...
+  template: src=server.j2  dest=./nginx/data/etc/sites/{{ domain }} owner=core group=core
+  
 - name: create certbot directories...
-  file: path=./certbot/data/var-lib state=directory owner=core group=core
-
-- name: create certbot directories...
-  file: path=./certbot/data/webroot state=directory owner=core group=core
-
-- name: create certbot directories...
-  file: path=./certbot/data/etc state=directory owner=core group=core
-
-- name: create certbot directories...
-  file: path=./certbot/data/log state=directory owner=core group=core    
+  file: path=./certbot/data/{{ item }} state=directory owner=core group=core
+  with_items:
+    - [var-lib, webroot, etc, log]
   
 - name: build nginx container...
   become: yes
