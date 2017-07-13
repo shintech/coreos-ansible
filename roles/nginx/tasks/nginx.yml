@@ -25,7 +25,7 @@
   template: src=site.j2  dest=./nginx/data/etc/sites/{{ domain }} owner=core group=core
   
 - name: check if certbot directories needed...
-  raw: stat $HOME/nginx
+  raw: stat $HOME/certbot
   register: certbot_directories
   ignore_errors: True
   changed_when: false

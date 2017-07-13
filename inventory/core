@@ -1,8 +1,8 @@
 [web]
-dev.shintech.ninja
+shintech.ninja
 
 [coreos]
-dev.shintech.ninja
+shintech.ninja
 
 [coreos:vars]
 ansible_ssh_user=core
