@@ -3,4 +3,4 @@ environment_file: $HOME/docker.env
 domain: shintech.ninja
 ssl_key: /etc/letsencrypt/live/shintech.ninja/privkey.pem
 ssl_crt: /etc/letsencrypt/live/shintech.ninja/fullchain.pem
-email: email@example.com
+email: email@gmail.com
